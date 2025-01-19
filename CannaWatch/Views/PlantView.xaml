@@ -1,0 +1,91 @@
+﻿<Window x:Class="CannaWatch.Views.PlantView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:CannaWatch.ViewModels"
+        Title="Plants" Height="600" Width="800">
+
+    <!-- Define a grid with two columns: Left for Temperature and Humidity, Right for Plant List -->
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+            
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Column: Temperature and Humidity Info -->
+        <StackPanel Grid.Column="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Text="Tent Environment" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" TextAlignment="Center"/>
+
+            <TextBlock Text="{Binding TentTemp, StringFormat='Temperature: {0}°C'}" 
+                       Margin="0,10,0,0" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding TentHum, StringFormat='Humidity: {0}%'}" 
+                       Margin="0,10,0,10" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Right Column: Plant List -->
+        <ListView Grid.Column="0" ItemsSource="{Binding Plants}" Background="#F5F5F5" BorderBrush="Gray" BorderThickness="1" Padding="5">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="8" BorderBrush="LightGray" BorderThickness="1" Padding="10" Margin="5" Background="White">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="White" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding isHarvested}" Value="True">
+                                        <Setter Property="Background" Value="LightGreen" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                            <!-- Plant Image -->
+                            <Image Source="{Binding ImageUrl}" Width="180" Height="180" Margin="0,0,0,10" />
+
+                            <!-- Strain Name -->
+                            <TextBlock Text="{Binding Strain}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,5" />
+
+                            <!-- Watering and Feeding Info -->
+                            <TextBlock Text="{Binding DaysSinceLastWatered, StringFormat='Last watered: {0} days'}" 
+                                       Margin="0,2,0,0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding DaysSinceLastFed, StringFormat='Last fed: {0} days'}" 
+                                       Margin="0,2,0,10" HorizontalAlignment="Center"/>
+
+                            <!-- Action Buttons for Water, Feed, and Details -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Command="{Binding DataContext.WaterPlantCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}" Margin="5" Background="Transparent" BorderThickness="0">
+                                    <Image Source="/Views/images/Steel_Watering_Can.jpg" Width="32" Height="32"/>
+                                </Button>
+
+                                <Button Command="{Binding DataContext.FeedPlantCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}" Margin="5" Background="Transparent" BorderThickness="0">
+                                    <Image Source="/Views/images/Basicfertilizer.jpg" Width="32" Height="32"/>
+                                </Button>
+
+                                <Button Command="{Binding DataContext.HarvestPlantCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}" Margin="5" Background="Transparent" BorderThickness="0">
+                                    <Image Source="/Views/images/IridiumScythe.jpg" Width="32" Height="32"/>
+                                </Button>
+
+                                <!-- Details Button -->
+                                <Button Command="{Binding DataContext.OpenDetailsCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                        CommandParameter="{Binding}" Margin="5" Background="#8BC34A" Foreground="White" Width="75" Height="32" FontSize="12" FontWeight="Bold" Content="Details">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" CornerRadius="15">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>

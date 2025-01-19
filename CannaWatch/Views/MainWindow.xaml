@@ -1,0 +1,71 @@
+﻿<Window x:Class="CannaWatch.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CannaWatch" Height="400" Width="600">
+
+    <!-- Background Image with Uniform Stretch -->
+    <Window.Background>
+        <ImageBrush ImageSource="/Views/main.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+
+    <!-- Semi-Transparent Overlay for Text Readability -->
+    <Grid Background="#80000000">
+
+        <!-- Define Rows for Layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- App Title -->
+        <TextBlock Grid.Row="0" FontSize="28" TextAlignment="Center" FontWeight="Bold" 
+                   Text="CannaWatch" Margin="5" Foreground="LawnGreen" HorizontalAlignment="Center"/>
+
+        <!-- Buttons for Navigation -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,10">
+
+            <!-- View Plants Button -->
+            <Button Content="View Plants" Click="ViewPlants_Click" Height="60" Width="120" Margin="20,0"
+                    Background="#8BC34A" Foreground="White" FontWeight="Bold" FontSize="16" BorderThickness="0" 
+                    HorizontalAlignment="Center">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <!-- Add Plant Button -->
+            <Button Content="Add Plant" Click="AddPlant_Click" Height="60" Width="120" Margin="20,0"
+                    Background="#4CAF50" Foreground="White" FontWeight="Bold" FontSize="16" BorderThickness="0"
+                    HorizontalAlignment="Center">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+        </StackPanel>
+
+        <!-- Exit Button -->
+        <StackPanel Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,10,0,20">
+            <Button Content="Exit" Click="CloseProgram_Click" Width="120" Height="45" Background="Red"
+                    Foreground="White" FontWeight="Bold" FontSize="16" BorderThickness="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
